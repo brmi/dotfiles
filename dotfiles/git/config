@@ -1,15 +1,16 @@
 [user]
-	name = your-name-here
-	email = your@email.here
+	name = “s1v4”
+	email = “hdao61@gmail.com”
 [alias]
 	co = checkout
 [color]
 	diff = auto
 	status = auto
 	branch = auto
+	ui = true
 [core]
 	excludesfile = ~/.gitignore
-	editor = mate -w
+	editor = subl -w
 	autocrlf = input
         paget = less -x4
 	pager = less -x3
