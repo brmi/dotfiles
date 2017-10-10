@@ -1,4 +1,4 @@
-# Setup a New Computer
+# Setup a Ruby on Rails enviroment for OSX
 
 These steps will help you through setting up a new computer with the following:
 
