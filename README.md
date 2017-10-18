@@ -158,6 +158,8 @@ Theme:
 
 Sublime Packages:
 
+The simplest method of installation is through the Sublime Text console. The console is accessed via the ctrl+` shortcut or the View > Show Console menu. Once open, paste the appropriate Python code for your version of Sublime Text into the console. Code is available [here](https://packagecontrol.io/installation).
+
 - AdvancedNewFile
 - Better Coffeescript
 - DashDoc
