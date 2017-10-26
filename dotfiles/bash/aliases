@@ -220,6 +220,10 @@ end
   rails generate rspec:install
 }
 
+# RSpec & Guard
+# -----
+alias ber='bundle exec rspec'
+alias g='guard'
 
 # BUNDLER
 # -------
@@ -267,6 +271,7 @@ alias tv='top -o vsize'
 # ----
 
 alias  cdb='cd ~/bin'
+alias  cdba='cd ~/bin/dotfiles/bash'
 alias  cdp='cd ~/projects'
 alias  cddr='cd ~/projects/doc_rank'
 alias  cdkw='cd ~/projects/keyword'
@@ -277,3 +282,5 @@ alias  cd424='cd ~/projects/cecs424/12906112'
 alias  cda='cd ~/projects/accounts'
 alias  cdd='cd ~/projects/ditto'
 alias  cdl='cd ~/projects/limelight'
+alias  cdt='cd ~/projects/trailerplus'
+alias  cdyr='cd ~/projects/yt-ripping'
