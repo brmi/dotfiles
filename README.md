@@ -152,6 +152,18 @@ Installation:
         brew tap caskroom/versions
         brew cask install sublime-text3
 
+Setup:
+
+	# Create symlink
+	ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
+
+	# Add below path to your .bash_profile or .bashrc
+	export PATH=/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$PATH
+	export EDITOR='subl -w'
+
+	# Runs below for immediate command:
+	source ~/.bash_profile
+
 Theme:
 
 - Ayu (ayu-mirage.sublime-theme)
