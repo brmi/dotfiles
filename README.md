@@ -148,9 +148,7 @@ You can now visit http://localhost:3000 to view your new website!
 
 Installation:
 
-        brew install caskroom/cask/brew-cask
-        brew tap caskroom/versions
-        brew cask install sublime-text3
+Install [sublime-text-3](https://www.sublimetext.com/3).
 
 Setup:
 
@@ -179,7 +177,7 @@ The simplest method of installation is through the Sublime Text console. The con
 - Emmet
 - GitGutter
 - Markdown Preview
-- Package Control
+- Whitespace
 - Beautify Ruby
 - SublimeCodeIntel
 - SublimeLinter
@@ -217,6 +215,16 @@ Pry Keybinding:
   { "keys": ["alt+super+p"], "command": "insert", "args": {"characters": "require 'pry';binding.pry"} },
   { "keys": ["alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser":"markdown"} },
 ]
+```
+
+Syntax Specific for Whitespace package:
+```
+{
+    "remove_trailing_whitespace_on_save": true,
+    "ensure_single_trailing_newline": true,
+    "ignore_whitespace_only_lines": false,
+    "ignore_whitespace_on_current_line": true
+}
 ```
 
 ## Environment Settings
