@@ -273,7 +273,7 @@ Syntax Specific for Whitespace package:
 10. Load **git prompt** support:
 
         source ~/.bashrc
-        vcprompt-install
+        brew install vcprompt
 
 11. Load **hub** support (optional):
 
