@@ -9,13 +9,14 @@ These steps will help you through setting up a new computer with the following:
   3. [Ruby](#ruby)
   4. [Rails](#rails)
   5. [Databases](#databases)
-  6. [Sublime](#sublime)
-  7. [Environment Settings](#environment-settings)
-  8. [Iterm](#iterm)
-  9. [Git Commands](#git-commands)
-  10. [Gems](#gems)
-  11. [Yard](#yard)
-  12. [References](#references)
+  6. [Heroku](#heroku)
+  7. [Sublime](#sublime)
+  8. [Environment Settings](#environment-settings)
+  9. [Iterm](#iterm)
+  10. [Git Commands](#git-commands)
+  11. [Gems](#gems)
+  12. [Yard](#yard)
+  13. [References](#references)
 
 ## Homebrew
 
@@ -144,6 +145,47 @@ And now for the moment of truth. Let's create your first Rails application:
 
 You can now visit http://localhost:3000 to view your new website!
 
+## Heroku
+
+**Setup**
+
+To install the Heroku CLI with homebrew:
+
+        brew install heroku/brew/heroku
+
+It’s generally a good idea to login and add your public key immediately after installing the Heroku CLI so that you can use git to push or clone Heroku app repositories:
+
+	$ heroku login
+	Enter your Heroku credentials.
+	Email: adam@example.com
+	Password (typing will be hidden):
+	Authentication successful.
+
+You’re now ready to create your first Heroku app:
+
+	cd ~/myapp
+	$ heroku create
+	Creating app... done, ⬢ sleepy-meadow-81798
+	https://sleepy-meadow-81798.herokuapp.com/ | https://git.heroku.com/sleepy-meadow-81798.git
+
+**Database Dump**
+
+To capture, download, and load a production database from Heroku into your local development environment:
+
+	heroku pg:backups -a myproject-production
+
+	heroku pg:backups capture -a myproject-production
+
+	curl -o latest.dump `heroku pg:backups public-url b123 -a myproject-production`
+
+	rake db:drop db:create
+
+	pg_restore --verbose --clean --no-acl --no-owner -d myproject_development latest.dump
+
+It's optional to delete your capture:
+
+	heroku pg:backups delete b123 -a trailerplus-production -c trailerplus-production
+	
 ## Sublime
 
 Installation:
