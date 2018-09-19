@@ -67,6 +67,7 @@ alias gta='git stash apply'
 alias gca='git add -A . && git commit --amend --no-edit'
 alias grh='git reset HEAD'
 alias grhh='git reset --hard HEAD'
+alias grhoh='git reset --hard HEAD'
 alias  gla='git shortlog -ns' # Summary by author
 alias  gbn="git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'" # current branch name
 alias  gra='git rebase --abort'
@@ -137,6 +138,27 @@ function gob() { # create a feature branch with an empty "Start feature" commit 
 }
 function gri() { # interactive rebase with the previous SHA
   git rebase -i $1^
+}
+
+# make a pull request from the current git repository. Tries the upstream remote if possible, otherwise uses origin.
+function cpr() {
+  to_branch=$1
+  if [ -z $to_branch ]; then
+    to_branch="master"
+  fi
+  
+  # try the upstream branch if possible, otherwise origin will do
+  upstream=$(git config --get remote.upstream.url)
+  origin=$(git config --get remote.origin.url)
+  if [ -z $upstream ]; then
+    upstream=$origin
+  fi
+  
+  to_user=$(echo $upstream | sed -e 's/.*[\/:]\([^/]*\)\/[^/]*$/\1/')
+  from_user=$(echo $origin | sed -e 's/.*[\/:]\([^/]*\)\/[^/]*$/\1/')
+  repo=$(basename `git rev-parse --show-toplevel`)
+  from_branch=$(git rev-parse --abbrev-ref HEAD)
+  open "https://github.com/$to_user/$repo/pull/new/$to_user:$to_branch...$from_user:$from_branch"
 }
 
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
@@ -262,25 +284,72 @@ function gua { # gem uninstall all (except system), then reinstall bundler, pry 
   gem install bundler git pry jekyll
 }
 
+# Heroku
+# ---
+alias hrrc='heroku run rails console -a'
+alias hpgb='heroku pg:backups -a'
+alias hpgbc='heroku pg:backups capture -a'
+
+function heroku-deploy () {
+  git push $1 master
+}
+
+function heroku-pg-dump () {
+  curl -o latest.dump `heroku pg:backups public-url $1 -a trailerplus-production`
+  rake db:drop db:create
+  pg_restore --verbose --clean --no-acl --no-owner -d trailerplus_development latest.dump
+}
+
+# AWS
+
+function ec2-run-102 () {
+  echo "NOTE: app directory is under /var/app/current/"
+  ssh -i ~/projects/keys/aaron.pem ec2-user@52.10.91.102
+}
+
+# NPM & LAMBDAS
+# npm init
+# npm i
+# npm prune
+# npm ls
+# npm run deploy
+
+# package.json
+
+#   "scripts": {
+#     "deploy": "zip -r package.zip . -x *.git* | aws lambda update-function-code --function-name creator-payments-listener --zip-file fileb://$(pwd)/package.zip && rm package.zip",
+#     "test": "echo \"Error: no test specified\" && exit 1"
+#   }
+
 # TOP
 # ---
 alias tc='top -o cpu'
 alias tv='top -o vsize'
 
+#PYTHON
+alias python=python3
+alias py3=python3
+
 # COMMON PATHS
 # ----
 
+alias  edit-bash='subl ~/bin/dotfiles/bash/aliases'
 alias  cdb='cd ~/bin'
 alias  cdba='cd ~/bin/dotfiles/bash'
 alias  cdp='cd ~/projects'
 alias  cddr='cd ~/projects/doc_rank'
-alias  cdkw='cd ~/projects/keyword'
 alias  cdfa='cd ~/projects/fb-auth'
 alias  cdfc='cd ~/projects/fb-core'
 alias  cdfs='cd ~/projects/fb-support'
-alias  cd424='cd ~/projects/cecs424/12906112'
-alias  cda='cd ~/projects/accounts'
 alias  cdd='cd ~/projects/ditto'
 alias  cdl='cd ~/projects/limelight'
-alias  cdt='cd ~/projects/trailerplus'
-alias  cdyr='cd ~/projects/yt-ripping'
+alias  cdgb='cd ~/projects/theguestbook'
+alias  cdbe='cd ~/projects/booking_engine_integration'
+
+# DELAYED JOBS
+alias  start-custom-mailer='bin/delayed_job -m --queue=theguestbook_custom_mailer -i=theguestbook_custom_mailer_1 restart'
+
+# Fix PG::ConnectionBad - could not connect to server
+alias  fix-pg-connection='rm /usr/local/var/postgres/postmaster.pid'
+
+
